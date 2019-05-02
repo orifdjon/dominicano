@@ -34,7 +34,6 @@
     <v-toolbar
       color="#FFFFFF"
       height="50px"
-
       class="hidden-sm-and-up"
       app
     >
@@ -61,6 +60,7 @@
       class="hidden-sm-and-up"
       :value="true"
       shift
+      height="95px"
       app
     >
       <v-btn
@@ -89,14 +89,14 @@ import { Link } from '@/types'
 @Component
 export default class App extends Vue {
   get title () : string {
-    return vmx.general.projectTitle
+    return vmx.general.title
   }
   get links () : Link[] {
     return [
       { title: 'Home', icon: 'home', url: '/' },
       { title: 'Services', icon: 'comment', url: '/services' },
       { title: 'Favorites', icon: 'bookmark', url: '/favorites' },
-      { title: 'Contact us', icon: 'headset_mic', url: '/contact_us' },
+      { title: 'Contact us', icon: 'call', url: '/contact_us' },
       { title: 'Account', icon: 'person', url: '/account' }
     ]
   }

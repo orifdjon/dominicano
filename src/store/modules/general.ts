@@ -2,7 +2,7 @@ import { VuexModule, mutation, action, getter, Module } from 'vuex-class-compone
 
 @Module({ namespacedPath: 'general/' })
 export class GeneralStore extends VuexModule {
-  private title = 'TodoGood'
+  @getter title = 'TodoGood'
 
   @mutation changeTitle (name: string) {
     switch (name) {
@@ -27,9 +27,5 @@ export class GeneralStore extends VuexModule {
         break
       }
     }
-  }
-
-  get projectTitle () : string {
-    return this.title
   }
 }
