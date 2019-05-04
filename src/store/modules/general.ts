@@ -26,6 +26,10 @@ export class GeneralStore extends VuexModule {
         this.title = 'Account'
         break
       }
+      case 'Ad': {
+        this.title = 'Offer'
+        break
+      }
     }
   }
 }

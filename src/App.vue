@@ -64,14 +64,21 @@
       app
     >
       <v-btn
-        v-for="link in links"
-        :key="link.title"
-        :to="link.url"
-        color="primary"
-        flat
+          v-for="link in links"
+          :key="link.title"
+          :to="link.url"
+          color="primary"
+          flat
       >
         <span>{{ link.title }}</span>
-        <v-icon>{{ link.icon }}</v-icon>
+        <v-icon >{{ link.icon }}</v-icon>
+        <v-badge
+          right
+          color="red"
+          v-if="link.title === 'Favorites' && (favoriteAdsLength !== 0)"
+        >
+          <span slot="badge">{{ favoriteAdsLength }}</span>
+        </v-badge>
       </v-btn>
     </v-bottom-nav>
 
@@ -90,6 +97,10 @@ import { Link } from '@/types'
 export default class App extends Vue {
   get title () : string {
     return vmx.general.title
+  }
+  get favoriteAdsLength () : number {
+    const favoriteAdsLength = vmx.ads.favoriteAds.length
+    return favoriteAdsLength
   }
   get links () : Link[] {
     return [

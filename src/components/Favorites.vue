@@ -2,7 +2,7 @@
   <v-container grid-list-md >
     <v-layout row wrap>
       <v-flex xs12>
-        <v-subheader style="font-size: x-large; color: #6644BB">Total cost: {{ price }}</v-subheader>
+        <v-subheader style="font-size: x-large; color: #6644BB">Total cost: ${{ price }}</v-subheader>
         <v-divider></v-divider>
       </v-flex>
       <v-flex v-for="ad in ads" xs12 sm6 md4 :key="ad.id">
@@ -19,7 +19,14 @@
               :src="img"
             >
               <div class="ad-title">
-                <v-btn flat class="white text-title " style="color: #FF5247">{{ ad.title }}</v-btn>
+                <v-btn
+                  flat
+                  class="white text-title"
+                  style="color: #FF5247"
+                  :to="'/ad/' + ad.id"
+                >
+                  {{ ad.title }}
+                </v-btn>
               </div>
             </v-carousel-item>
           </v-carousel>

@@ -8,10 +8,11 @@
       <v-flex v-for="ad in ads" xs12 sm6 md4 :key="ad.id">
         <v-card>
           <v-carousel
-            height="150"
+            height="200"
             :cycle="false"
             hide-delimiters
             dark
+            next-icon="keyboard_arrow_right"
           >
             <v-carousel-item
               v-for="(img,i) in ad.imageSrc"
@@ -19,7 +20,15 @@
               :src="img"
             >
               <div class="ad-title">
-                <v-btn flat class="white text-title " style="color: #FF5247">{{ ad.title }}</v-btn>
+                <v-btn
+                  flat
+                  class="white text-title"
+                  style="color: #FF5247"
+                  depressed
+                  :to="'/ad/' + ad.id"
+                >
+                  {{ ad.title }}
+                </v-btn>
               </div>
             </v-carousel-item>
           </v-carousel>
@@ -48,6 +57,7 @@ import { vmx } from '@/store'
 @Component
 export default class Home extends Vue {
   @Provide() ads = vmx.ads.ads
+  ss: any = vmx.shared.setLoading({ loading: true, error: null })
 }
 </script>
 
@@ -56,7 +66,7 @@ export default class Home extends Vue {
     /*position: ;*/
     /*bottom: 50px;*/
     position: absolute;
-    padding-top: 112px;
+    padding-top: 160px;
 
     /*padding-right: 20px;*/
     /*width: 70px;*/
