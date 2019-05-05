@@ -1,5 +1,5 @@
 <template>
-  <v-container grid-list-lg fluid>
+  <v-container grid-list-lg fluid ma-0 pa-0>
     <v-layout row wrap>
       <v-flex xs12 sm12 md12>
         <v-subheader class="text-sm-left font-weight-bold" style="font-size: larger">All excursions</v-subheader>
@@ -8,6 +8,7 @@
       <v-flex v-for="ad in ads" xs12 sm6 md4 :key="ad.id">
         <v-card>
           <v-carousel
+            class="elevation-0"
             height="200"
             :cycle="false"
             hide-delimiters
@@ -22,7 +23,7 @@
               <div class="ad-title">
                 <v-btn
                   flat
-                  class="white text-title"
+                  class="white text-title elevation-0"
                   style="color: #FF5247"
                   depressed
                   :to="'/ad/' + ad.id"

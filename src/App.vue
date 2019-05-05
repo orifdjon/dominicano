@@ -25,6 +25,13 @@
           color="primary"
           flat
         >
+          <v-badge
+          rigth
+          color="red"
+          v-if="link.title === 'Favorites' && (favoriteAdsLength !== 0)"
+          >
+            <span slot="badge">{{ favoriteAdsLength }}</span>
+          </v-badge>
           <v-icon left>{{ link.icon }}</v-icon>
           <span >{{ link.title }}</span>
         </v-btn>

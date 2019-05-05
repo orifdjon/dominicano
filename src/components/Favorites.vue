@@ -1,5 +1,5 @@
 <template>
-  <v-container grid-list-md >
+  <v-container grid-list-md ma-0 pa-0>
     <v-layout row wrap>
       <v-flex xs12>
         <v-subheader style="font-size: x-large; color: #6644BB">Total cost: ${{ price }}</v-subheader>
@@ -8,7 +8,8 @@
       <v-flex v-for="ad in ads" xs12 sm6 md4 :key="ad.id">
         <v-card>
           <v-carousel
-            height="150"
+            class="elevation-0"
+            height="200"
             :cycle="false"
             hide-delimiters
             dark
@@ -69,8 +70,7 @@ export default class Favorites extends Vue {
     /*position: ;*/
     /*bottom: 50px;*/
     position: absolute;
-    padding-top: 112px;
-
+    padding-top: 160px;
     /*padding-right: 20px;*/
     /*width: 70px;*/
     /*height: 26px;*/
