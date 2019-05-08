@@ -7,6 +7,8 @@ import ContactUs from '@/components/ContactUs.vue'
 import Account from '@/components/Account.vue'
 import changeTitle from '@/router/changeTitle.ts'
 import Ad from '@/components/Ads/Ad.vue'
+import Login from '@/components/Auth/Login.vue'
+import Registration from "@/components/Auth/Registration.vue";
 const Favorites = () => import('@/components/Favorites.vue') // TODO полезна ли ленивая загрузка
 Vue.use(VueRouter)
 
@@ -48,6 +50,16 @@ export default new VueRouter({
       name: 'Account',
       component: Account,
       beforeEnter: changeTitle
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/registration',
+      name: 'Registartion',
+      component: Registration
     },
     {
       path: '*',

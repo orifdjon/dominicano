@@ -137,6 +137,7 @@ export default class Ad extends Vue {
     get toggleBook (): boolean {
       return !this.isBook
     }
+
 }
 </script>
 

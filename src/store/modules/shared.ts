@@ -6,6 +6,7 @@ export class SharedStore extends VuexModule {
   @getter error = null
 
   @mutation setLoadingMut ({ loading }: IShared) {
+    // @ts-ignore
     this.loading = loading
   }
 
@@ -31,6 +32,6 @@ export class SharedStore extends VuexModule {
 }
 
 interface IShared {
-  loading: boolean
-  error: any
+  loading?: boolean
+  error?: any
 }

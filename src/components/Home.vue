@@ -57,8 +57,7 @@ import { vmx } from '@/store'
 
 @Component
 export default class Home extends Vue {
-  @Provide() ads = vmx.ads.ads
-  ss: any = vmx.shared.setLoading({ loading: true, error: null })
+  ads = vmx.ads.ads
 }
 </script>
 

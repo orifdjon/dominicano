@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import { store } from '@/store'
 import router from '@/router'
 import App from './App.vue'
+import * as fb from 'firebase/app'
 import './plugins/vuetify'
 import './registerServiceWorker'
 
@@ -15,6 +16,17 @@ Vue.use(Vuex)
 new Vue({
   render: h => h(App),
   router,
-  store
-
+  store,
+  created () {
+    const firebaseConfig = {
+      apiKey: 'AIzaSyDHhSX8ULd2-2O7wNLBc1rT62Qu5RLYP64',
+      authDomain: 'todogood-baf41.firebaseapp.com',
+      databaseURL: 'https://todogood-baf41.firebaseio.com',
+      projectId: 'todogood-baf41',
+      storageBucket: 'todogood-baf41.appspot.com',
+      messagingSenderId: '1032870828763',
+      appId: '1:1032870828763:web:6ebb66d71eb23994'
+    }
+    fb.initializeApp(firebaseConfig)
+  }
 }).$mount('#app')
