@@ -63,10 +63,13 @@ export default class Login extends Vue {
     v => (v && v.length >= 6) || 'Password must be equal or more than 6 characters'
   ]
   onSubmit () {
-    if (this.$refs.form.validate()) {
+    if ((this.$refs.form as any).validate()) {
       const user = {
         email: this.email,
-        password: this.password
+        password: this.password,
+        firstName: '',
+        lastName: '',
+        phoneNumber: ''
       }
       vmx.user.signInUser(user)
         .then(() => this.$router.push('/'))

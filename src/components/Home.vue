@@ -35,7 +35,7 @@
           <v-card-actions>
             <span style="color: #FF5247" class="font-weight-bold ml-4" >{{ad.currency}}{{ ad.price }}</span>
             <v-spacer></v-spacer>
-            <v-btn flat icon @click="addToFavorites">
+            <v-btn flat icon @click="addToFavorites(ad)">
               <v-icon v-if="!ad.flag" color="primary" >turned_in_not</v-icon>
               <v-icon v-else color="primary">turned_in</v-icon>
             </v-btn>
