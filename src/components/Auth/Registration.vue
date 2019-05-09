@@ -20,7 +20,7 @@
                 name="secondName"
                 label="Фамилия"
                 type="text"
-                v-model="secondName"
+                v-model="lastName"
                 :rules="nameRules"
                 required
               ></v-text-field>
@@ -111,7 +111,7 @@ import { vmx } from '@/store'
 })
 export default class Registration extends Vue {
   @Provide() firstName: string = ''
-  @Provide() secondName: string = ''
+  @Provide() lastName: string = ''
   @Provide() phoneNumber: string = ''
   @Provide() valid: boolean = false
   @Provide() email: string = ''
@@ -124,10 +124,10 @@ export default class Registration extends Vue {
     return vmx.shared.loading
   }
   onSubmit () {
-    if (this.$refs.form.validate()) {
+    if ((this.$refs.form as any).validate()) {
       const user = {
-        name: this.firstName,
-        secondName: this.secondName,
+        firstName: this.firstName,
+        lastName: this.lastName,
         phoneNumber: this.phoneNumber,
         email: this.email,
         password: this.password

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
-import { store } from '@/store'
+import {store, vmx} from '@/store'
 import router from '@/router'
 import App from './App.vue'
 import * as fb from 'firebase/app'
@@ -28,5 +28,11 @@ new Vue({
       appId: '1:1032870828763:web:6ebb66d71eb23994'
     }
     fb.initializeApp(firebaseConfig)
+    fb.auth().onAuthStateChanged(user => {
+      if (user) {
+        vmx.user.autoLoginUser(user)
+          .then(() => console.log('autoLoginUser'))
+      }
+    })
   }
 }).$mount('#app')

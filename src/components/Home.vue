@@ -13,7 +13,6 @@
             :cycle="false"
             hide-delimiters
             dark
-            next-icon="keyboard_arrow_right"
           >
             <v-carousel-item
               v-for="(img,i) in ad.imageSrc"
@@ -36,7 +35,7 @@
           <v-card-actions>
             <span style="color: #FF5247" class="font-weight-bold ml-4" >{{ad.currency}}{{ ad.price }}</span>
             <v-spacer></v-spacer>
-            <v-btn flat icon @click="ad.flag = !ad.flag">
+            <v-btn flat icon @click="addToFavorites">
               <v-icon v-if="!ad.flag" color="primary" >turned_in_not</v-icon>
               <v-icon v-else color="primary">turned_in</v-icon>
             </v-btn>
@@ -54,10 +53,29 @@
 <script lang="ts">
 import { Component, Provide, Vue } from 'vue-property-decorator'
 import { vmx } from '@/store'
+import { Ad } from '@/store/modules/ads'
 
 @Component
 export default class Home extends Vue {
-  ads = vmx.ads.ads
+  @Provide() ads = vmx.ads.ads
+  addToFavorites (ad: Ad) {
+    if (vmx.user.user != null) {
+      if (!ad.flag) {
+        vmx.user.user.favoritesIdList.push(ad.id)
+        ad.flag = true
+      } else {
+        const index = vmx.user.user.favoritesIdList.indexOf(ad.id)
+        if (index !== -1) {
+          vmx.user.user.favoritesIdList.splice(index, 1)
+          ad.flag = false
+        } else {
+          console.warn('ad.id must be in favorites')
+        }
+      }
+    } else {
+      this.$router.push('/login')
+    }
+  }
 }
 </script>
 

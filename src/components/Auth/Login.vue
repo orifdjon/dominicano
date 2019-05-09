@@ -4,7 +4,7 @@
       <v-flex xs12 sm8 md6>
         <v-card class="elevation-12">
           <v-toolbar dark color="primary">
-            <v-toolbar-title>Login form</v-toolbar-title>
+            <v-toolbar-title>Вход</v-toolbar-title>
           </v-toolbar>
           <v-card-text>
             <v-form ref="form" v-model="valid" lazy-validation>
@@ -31,9 +31,13 @@
             <v-spacer></v-spacer>
             <v-btn
               color="primary"
+              to="/registration"
+            >Регистрация</v-btn>
+            <v-btn
+              color="primary"
               :disabled="!valid"
               @click="onSubmit"
-            >Login</v-btn>
+            >Войти</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
