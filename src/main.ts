@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
-import {store, vmx} from '@/store'
+import { store, vmx } from '@/store'
 import router from '@/router'
 import App from './App.vue'
 import * as fb from 'firebase/app'

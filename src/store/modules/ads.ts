@@ -68,4 +68,8 @@ export class AdsStore extends VuexModule {
       return this.ads.find(ad => ad.id === adId)
     }
   }
+
+  @action async addAdToFavorites () {
+
+  }
 }

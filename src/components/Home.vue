@@ -61,16 +61,9 @@ export default class Home extends Vue {
   addToFavorites (ad: Ad) {
     if (vmx.user.user != null) {
       if (!ad.flag) {
-        vmx.user.user.favoritesIdList.push(ad.id)
-        ad.flag = true
+        vmx.user.putAdIdInUsersDb(ad)
       } else {
-        const index = vmx.user.user.favoritesIdList.indexOf(ad.id)
-        if (index !== -1) {
-          vmx.user.user.favoritesIdList.splice(index, 1)
-          ad.flag = false
-        } else {
-          console.warn('ad.id must be in favorites')
-        }
+        vmx.user.deleteAdIdInUsersDb(ad)
       }
     } else {
       this.$router.push('/login')
