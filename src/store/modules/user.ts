@@ -95,7 +95,6 @@ export class UserStore extends VuexModule {
       const doc = await fb.firestore().collection(this.userCollections).doc(user.uid).get()
       if (doc.exists) {
         this.setUser((doc.data() as User))
-        console.log(this.user)
       } else {
         vmx.shared.setErrorMut({ error: 'No such user on db' })
       }

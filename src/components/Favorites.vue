@@ -34,7 +34,7 @@
           <v-card-actions>
             <span style="color: #FF5247" class="font-weight-bold ml-4" >{{ad.currency}}{{ ad.price }}</span>
             <v-spacer></v-spacer>
-            <v-btn flat icon @click="ad.flag = !ad.flag">
+            <v-btn flat icon @click="deleteFromFavorites(ad)">
               <v-icon v-if="!ad.flag" color="primary" >turned_in_not</v-icon>
               <v-icon v-else color="primary">delete_outline</v-icon>
             </v-btn>
@@ -52,15 +52,21 @@
 <script lang="ts">
 import { Vue, Component, Provide } from 'vue-property-decorator'
 import { vmx } from '@/store'
+import { Ad } from '@/store/modules/ads'
 
 @Component
 export default class Favorites extends Vue {
   get ads () {
+    console.log(vmx.ads.favoriteAds)
     return vmx.ads.favoriteAds
   }
 
   get price () {
     return vmx.ads.totalCostAds
+  }
+  deleteFromFavorites (ad: Ad) {
+    ad.flag = false
+    vmx.user.deleteAdIdInUsersDb(ad)
   }
 }
 </script>

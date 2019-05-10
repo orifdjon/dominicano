@@ -31,7 +31,7 @@ new Vue({
     fb.auth().onAuthStateChanged(user => {
       if (user) {
         vmx.user.autoLoginUser(user)
-          .then(() => console.log('autoLoginUser'))
+          .then(() => vmx.ads.fetchAd())
       }
     })
   }
