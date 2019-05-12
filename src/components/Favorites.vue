@@ -57,7 +57,6 @@ import { Ad } from '@/store/modules/ads'
 @Component
 export default class Favorites extends Vue {
   get ads () {
-    console.log(vmx.ads.favoriteAds)
     return vmx.ads.favoriteAds
   }
 
@@ -66,7 +65,6 @@ export default class Favorites extends Vue {
   }
   deleteFromFavorites (ad: Ad) {
     ad.flag = false
-    vmx.user.deleteAdIdInUsersDb(ad)
   }
 }
 </script>
