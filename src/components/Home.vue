@@ -35,7 +35,7 @@
           <v-card-actions>
             <span style="color: #FF5247" class="font-weight-bold ml-4" >{{ad.currency}}{{ ad.price }}</span>
             <v-spacer></v-spacer>
-            <v-btn flat icon @click.once="addToFavorites(ad)">
+            <v-btn flat icon @click="addToFavorites(ad)">
               <v-icon v-if="!ad.flag" color="primary" >turned_in_not</v-icon>
               <v-icon v-else color="primary">turned_in</v-icon>
             </v-btn>
@@ -54,6 +54,7 @@
 import { Component, Provide, Vue } from 'vue-property-decorator'
 import { vmx } from '@/store'
 import { Ad } from '@/store/modules/ads'
+import * as firebase from 'firebase'
 
 @Component
 export default class Home extends Vue {
@@ -61,15 +62,28 @@ export default class Home extends Vue {
     return vmx.ads.ads
   }
   addToFavorites (ad: Ad) {
-    if (vmx.user.user != null) {
-      if (!ad.flag) {
-        vmx.user.putAdIdInUsersDb(ad)
+    firebase.auth().onAuthStateChanged((user:any) => {
+      if (user) {
+        if (!ad.flag) {
+          ad.flag = true
+          const favoritesAdIdList: string[] = this.$storage.get(user.uid, [])
+          favoritesAdIdList.push(ad.id)
+          this.$storage.set(user.uid, favoritesAdIdList)
+        } else {
+          ad.flag = false
+          const favoritesAdIdList: string[] = this.$storage.get(user.uid, [])
+          const index = favoritesAdIdList.indexOf(ad.id)
+          if (index > -1) {
+            favoritesAdIdList.splice(index, 1)
+            this.$storage.set(user.uid, favoritesAdIdList)
+          } else {
+            console.error('ad.id not exists in localStorage')
+          }
+        }
       } else {
-        vmx.user.deleteAdIdInUsersDb(ad)
+        this.$router.push('/login')
       }
-    } else {
-      this.$router.push('/login')
-    }
+    })
   }
 }
 </script>

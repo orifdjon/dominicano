@@ -9,8 +9,7 @@ class User {
     public id: string,
     public firstName: string,
     public lastName: string,
-    public phoneNumber: string,
-    public favoritesIdList: string[] = []
+    public phoneNumber: string
   ) {}
 }
 
@@ -50,7 +49,6 @@ export class UserStore extends VuexModule {
         .then(() => { console.log('successful create user') })
         .catch(() => console.error('throw exception while creating user'))
       console.log('registerUser')
-      // TODO сделать возможным записывать остальную информацию по мимо email и password
       vmx.shared.setLoadingMut({ loading: false })
     } catch (e) {
       vmx.shared.setLoadingMut({ loading: false })
@@ -99,42 +97,6 @@ export class UserStore extends VuexModule {
         vmx.shared.setErrorMut({ error: 'No such user on db' })
       }
       vmx.shared.setLoadingMut({ loading: false })
-    } catch (e) {
-      vmx.shared.setLoadingMut({ loading: false })
-      vmx.shared.setErrorMut({ error: e.message })
-    }
-  }
-
-  @action async putAdIdInUsersDb (ad: Ad) {
-    // @ts-ignore
-    this.user.favoritesIdList.push(ad.id)
-    ad.flag = true
-    vmx.shared.clearErrorMut()
-    vmx.shared.setLoadingMut({ loading: true })
-    try {
-      // @ts-ignore
-      const userRef = await fb.firestore().collection(this.userCollections).doc(vmx.user.user.id)
-      userRef.update({
-        favoritesIdList: fb.firestore.FieldValue.arrayUnion(ad.id)
-      })
-    } catch (e) {
-      vmx.shared.setLoadingMut({ loading: false })
-      vmx.shared.setErrorMut({ error: e.message })
-    }
-  }
-
-  @action async deleteAdIdInUsersDb (ad: Ad) {
-    // @ts-ignore
-    this.user.favoritesIdList.push(ad.id)
-    ad.flag = false
-    vmx.shared.clearErrorMut()
-    vmx.shared.setLoadingMut({ loading: true })
-    try {
-      // @ts-ignore
-      const userRef = await fb.firestore().collection(this.userCollections).doc(vmx.user.user.id)
-      userRef.update({
-        favoritesIdList: fb.firestore.FieldValue.arrayRemove(ad.id)
-      })
     } catch (e) {
       vmx.shared.setLoadingMut({ loading: false })
       vmx.shared.setErrorMut({ error: e.message })

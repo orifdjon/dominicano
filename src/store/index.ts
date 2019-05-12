@@ -4,6 +4,7 @@ import { GeneralStore } from '@/store/modules/general'
 import { SharedStore } from '@/store/modules/shared'
 import { AdsStore } from '@/store/modules/ads'
 import { UserStore } from '@/store/modules/user'
+import { VueStorage } from 'vue2-storage'
 
 Vue.use(Vuex)
 
@@ -20,5 +21,7 @@ export const vmx = {
   general: GeneralStore.CreateProxy(store, GeneralStore),
   shared: SharedStore.CreateProxy(store, SharedStore),
   ads: AdsStore.CreateProxy(store, AdsStore),
-  user: UserStore.CreateProxy(store, UserStore)
+  user: UserStore.CreateProxy(store, UserStore),
+  // @ts-ignore
+  storage: VueStorage
 }

@@ -1,19 +1,19 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/components/Home.vue'
-// import Favorites from '@/components/Favorites.vue'
-import Services from '@/components/Services.vue'
+// import Favorites from
+// import Services from
 import ContactUs from '@/components/ContactUs.vue'
 import Account from '@/components/Account.vue'
 import changeTitle from '@/router/changeTitle.ts'
 import Ad from '@/components/Ads/Ad.vue'
 import Login from '@/components/Auth/Login.vue'
 import Registration from '@/components/Auth/Registration.vue'
-import AuthGuard from './auth.guard'
-const Favorites = () => import('@/components/Favorites.vue') // TODO полезна ли ленивая загрузка
+import * as firebase from 'firebase'
+import { vmx } from '@/store'
 Vue.use(VueRouter)
 
-export default new VueRouter({
+const router = new VueRouter({
   routes: [
     {
       path: '',
@@ -31,14 +31,14 @@ export default new VueRouter({
     {
       path: '/services',
       name: 'Services',
-      component: Services,
+      component: () => import('@/components/Services.vue'),
       beforeEnter: changeTitle
     },
     {
       path: '/favorites',
       name: 'Favorites',
-      component: Favorites,
-      beforeEnter: AuthGuard
+      component: () => import('@/components/Favorites.vue'),
+      meta: { requiresAuth: true }
     },
     {
       path: '/contact_us',
@@ -50,7 +50,7 @@ export default new VueRouter({
       path: '/account',
       name: 'Account',
       component: Account,
-      beforeEnter: AuthGuard
+      meta: { requiresAuth: true }
     },
     {
       path: '/login',
@@ -69,3 +69,20 @@ export default new VueRouter({
   ],
   mode: 'history'
 })
+
+router.beforeEach((to:any, from:any, next:any) => {
+  if (to.matched.some((record:any) => record.meta.requiresAuth)) {
+    firebase.auth().onAuthStateChanged(user => {
+      if (!user) {
+        next({ path: '/login' })
+      } else {
+        vmx.general.changeTitle(to.name)
+        next()
+      }
+    })
+  } else {
+    next()
+  }
+})
+
+export default router

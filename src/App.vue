@@ -106,8 +106,7 @@ export default class App extends Vue {
     return vmx.general.title
   }
   get favoriteAdsLength () : number {
-    const favoriteAdsLength = vmx.ads.favoriteAds.length
-    return favoriteAdsLength
+    return vmx.ads.favoriteAds.length
   }
   get links () : Link[] {
     return [
