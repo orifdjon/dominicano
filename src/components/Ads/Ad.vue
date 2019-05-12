@@ -76,12 +76,20 @@
       <v-layout ml-3 mr-3 wrap>
         <v-flex xs12>
           <v-btn
-            black
+            dark
             block
+            @click="isInFavourites = !isInFavourites"
+            :outline="toggleInFavourites"
             color="warning"
           >
-            <v-icon >turned_in_not</v-icon>
-            <span>Добавить в избранное</span>
+            <div v-if="!toggleInFavourites">
+              <v-icon>turned_in_not</v-icon>
+              <span>Добавить в избранное</span>
+            </div>
+            <div v-if="toggleInFavourites">
+              <v-icon>turned_in</v-icon>
+              <span>Убрать из избранного</span>
+            </div>
           </v-btn>
         </v-flex>
         <v-flex xs12>
@@ -122,6 +130,8 @@ export default class Ad extends Vue {
 
     @Provide() isBook: boolean = false
 
+    @Provide() isInFavourites: boolean = false
+
     get ad () {
       return vmx.ads.getAdById(this.id)
     }
@@ -138,6 +148,9 @@ export default class Ad extends Vue {
       return !this.isBook
     }
 
+    get toggleInFavourites (): boolean {
+      return !this.isInFavourites
+    }
 }
 </script>
 
