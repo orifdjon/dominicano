@@ -75,24 +75,21 @@
       </v-layout>
       <v-layout ml-3 mr-3 wrap>
         <v-flex xs12>
-          <v-btn v-if="toggleInFavourites"
-                 black
-                 block
-                 @click="isInFavourites = !isInFavourites"
-                 color="warning"
-          >
-            <v-icon>turned_in_not</v-icon>
-            <span>Добавить в избранное</span>
-          </v-btn>
-          <v-btn v-if="!toggleInFavourites"
-            black
+          <v-btn
+            dark
             block
             @click="isInFavourites = !isInFavourites"
-            outline
+            :outline="toggleInFavourites"
             color="warning"
           >
+            <div v-if="!toggleInFavourites">
               <v-icon>turned_in_not</v-icon>
               <span>Добавить в избранное</span>
+            </div>
+            <div v-if="toggleInFavourites">
+              <v-icon>turned_in</v-icon>
+              <span>Убрать из избранного</span>
+            </div>
           </v-btn>
         </v-flex>
         <v-flex xs12>
